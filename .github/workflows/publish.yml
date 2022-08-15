@@ -1,0 +1,27 @@
+name: publish to nuget
+on:
+  push:
+    branches:
+      - main
+jobs:
+
+  publish_to_nuget:
+    name: pack & public to nuget
+    runs-on: ubuntu-latest
+    steps:
+      - name: step 1 -> checkout repo
+        uses: actions/checkout@v2
+
+      - name: step 2 -> install .NET 6
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      
+      - name: step 3 -> restore
+        run: dotnet restore
+      
+      - name: step 4 -> pack
+        run: dotnet pack ./ZhangShaobo.Templates.csproj --configuration Release
+
+      - name: step 5 -> publis to NuGet
+        run: dotnet nuget push .\bin\Release\*.nupkg --api-key ${{secret.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
