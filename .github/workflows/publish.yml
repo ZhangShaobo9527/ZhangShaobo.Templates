@@ -24,4 +24,4 @@ jobs:
         run: dotnet pack ./ZhangShaobo.Templates.csproj --configuration Release
 
       - name: step 5 -> publis to NuGet
-        run: dotnet nuget push .\bin\Release\*.nupkg --api-key ${{ secret.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push .\bin\Release\*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
