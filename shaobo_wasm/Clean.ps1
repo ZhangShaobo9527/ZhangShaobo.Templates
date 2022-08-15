@@ -1,12 +1,12 @@
 $foldersNeedToClean =
 ".vs",
 ".vscode",
-".\__PROJECTNAME__.Client\bin",
-".\__PROJECTNAME__.Client\obj",
-".\__PROJECTNAME__.Server\bin",
-".\__PROJECTNAME__.Server\obj",
-".\__PROJECTNAME__.Shared\bin",
-".\__PROJECTNAME__.Shared\obj";
+".\__PROJECT_NAME__.Client\bin",
+".\__PROJECT_NAME__.Client\obj",
+".\__PROJECT_NAME__.Server\bin",
+".\__PROJECT_NAME__.Server\obj",
+".\__PROJECT_NAME__.Shared\bin",
+".\__PROJECT_NAME__.Shared\obj";
 
 Foreach($folder in $foldersNeedToClean)
 {

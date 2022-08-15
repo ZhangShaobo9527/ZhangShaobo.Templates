@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace __PROJECTNAME__.Server;
+namespace __PROJECT_NAME__.Server;
 
 public class Program
 {

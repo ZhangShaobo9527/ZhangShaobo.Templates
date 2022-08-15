@@ -7,7 +7,7 @@
   "identity": "ZhangShaobo.Templates.BlazorWASM",
   "name": "Blank Blazor WASM template",
   "shortName": "shaobo_wasm",
-  "sourceName": "__PROJECTNAME__",
+  "sourceName": "__PROJECT_NAME__",
   "defaultName": "HelloWASM",
   "symbols": {
     "HttpDevPort": {
@@ -15,14 +15,14 @@
       "datatype": "int",
       "description": "http listening port in Development",
       "defaultValue": "5018",
-      "replaces": "__DEVHTTPPORT__"
+      "replaces": "__DEV_HTTP_PORT__"
     },
     "HttpsDevPort": {
       "type": "parameter",
       "datatype": "int",
       "description": "https listening port in Development",
       "defaultValue": "7284",
-      "replaces": "__DEVHTTPSPORT__"
+      "replaces": "__DEV_HTTPS_PORT__"
     }
   }
 }

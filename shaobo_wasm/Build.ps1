@@ -1,1 +1,1 @@
-dotnet build __PROJECTNAME__.sln -v:normal
+dotnet build __PROJECT_NAME__.sln -v:normal

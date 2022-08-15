@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace __PROJECTNAME__.Client;
+namespace __PROJECT_NAME__.Client;
 
 public class Program
 {

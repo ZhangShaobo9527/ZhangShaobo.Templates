@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\__PROJECTNAME__.Client\__PROJECTNAME__.Client.csproj" />
-    <ProjectReference Include="..\__PROJECTNAME__.Shared\__PROJECTNAME__.Shared.csproj" />
+    <ProjectReference Include="..\__PROJECT_NAME__.Client\__PROJECT_NAME__.Client.csproj" />
+    <ProjectReference Include="..\__PROJECT_NAME__.Shared\__PROJECT_NAME__.Shared.csproj" />
   </ItemGroup>
 
 

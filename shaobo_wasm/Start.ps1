@@ -1,1 +1,1 @@
-dotnet watch --project __PROJECTNAME__.Server\__PROJECTNAME__.Server.csproj
+dotnet watch --project __PROJECT_NAME__.Server\__PROJECT_NAME__.Server.csproj
