@@ -2,26 +2,26 @@
   "$schema": "http://json.schemastore.org/template",
   "author": "Zhang.Shaobo@outlook.com",
   "classifications": [
-    "BlazorWASM"
+    "BlazorServer"
   ],
-  "identity": "ZhangShaobo.Templates.BlazorWASM",
-  "name": "Blank Blazor WASM template",
-  "shortName": "shaobo_wasm",
+  "identity": "ZhangShaobo.Templates.BlazorServer",
+  "name": "Blank Blazor Server template",
+  "shortName": "shaobo_blazor",
   "sourceName": "__PROJECT_NAME__",
-  "defaultName": "HelloBlazorWASM",
+  "defaultName": "HelloBlazorServer",
   "symbols": {
     "HttpDevPort": {
       "type": "parameter",
       "datatype": "int",
       "description": "http listening port in Development",
-      "defaultValue": "5018",
+      "defaultValue": "3037",
       "replaces": "__DEV_HTTP_PORT__"
     },
     "HttpsDevPort": {
       "type": "parameter",
       "datatype": "int",
       "description": "https listening port in Development",
-      "defaultValue": "7284",
+      "defaultValue": "6428",
       "replaces": "__DEV_HTTPS_PORT__"
     }
   }

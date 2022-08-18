@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageType>Template</PackageType>
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
     <PackageId>ZhangShaobo.Templates</PackageId>
     <Title>ZhangShaobo's Templates</Title>
     <Authors>Zhang.Shaobo@outlook.com</Authors>
@@ -13,12 +13,16 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <ContentTargetFolders>content</ContentTargetFolders>
 
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+    <NoWarn>NU5110;NU5111;NU5128</NoWarn>
+
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="shaobo_wasm\**\*" Exclude="shaobo_wasm\**\bin\**;shaobo_wasm\**\obj\**" />
+    <Content Include="shaobo_blazor\**\*" Exclude="shaobo_blazor\**\bin\**;shaobo_blazor\**\obj\**" />
     <Compile Remove="**\*" />
 
     <None Include="README.md" Pack="true" PackagePath="README.md" />
