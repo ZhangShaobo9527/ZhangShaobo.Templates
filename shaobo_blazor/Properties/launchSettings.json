@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "__PROJECT_NAME__": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:__DEV_HTTPS_PORT__;http://localhost:__DEV_HTTP_PORT__",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
