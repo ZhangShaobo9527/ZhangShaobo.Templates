@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageType>Template</PackageType>
-    <PackageVersion>1.0.3</PackageVersion>
+    <PackageVersion>1.0.4</PackageVersion>
     <PackageId>ZhangShaobo.Templates</PackageId>
     <Title>ZhangShaobo's Templates</Title>
     <Authors>Zhang.Shaobo@outlook.com</Authors>
@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Content Include="shaobo_wasm\**\*" Exclude="shaobo_wasm\**\bin\**;shaobo_wasm\**\obj\**" />
+    <Content Include="shaobo_wasm_antd\**\*" Exclude="shaobo_wasm_antd\**\bin\**;shaobo_wasm_antd\**\obj\**" />
     <Content Include="shaobo_blazor\**\*" Exclude="shaobo_blazor\**\bin\**;shaobo_blazor\**\obj\**" />
     <Compile Remove="**\*" />
 

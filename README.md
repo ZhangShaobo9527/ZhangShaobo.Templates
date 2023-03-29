@@ -1,3 +1,9 @@
+# release note
+
+|version|date|note|
+|--|--|--|
+|1.0.4|2023-03-29|add template `shaobo_wasm_antd` based on `shaobo_wasm`|
+
 # dotnet new templates
 
 The default templates shipped with dotnet sdk is fine, there is just some tiny annoying part made me feel uncomfortable, like:
@@ -12,7 +18,7 @@ So I've decided to create some templates:
 
 1. no implicit using as default
 2. `Program` and `Main` as the old way
-3. for web apps, just create a blank project
+3. for web apps, just create a blank project, no jQuery, no Bootstrap or any other js/css libraries
 4. add scripts like `Build.ps1`, `Clean.ps1` and `Start.ps1` for convenience.
 
 # templates
@@ -76,8 +82,13 @@ ${__PROJECT_NAME__}
 ### Notes:
 
 1. `${__PROJECT_NAME__}.Shared\BlankModel.cs` is a blank class definition. I have to place at least one class definition in the `Shared` project otherwise statement `using ${__PROJECT_NAME__}.Shared` will be treat as a compile error in `Client` & `Server` project
+2. `${__PROJECT_NAME__}.Shared` is just a regular class library, it's not Blazor Component Library, so don't put any shared Blazor Components or statis assets into it
 
-## 2. Blazor Server application : `shaobo_blazor`
+## 2. Blazor WASM application with AntDesign UI library integrated : `shaobo_wasm_antd`
+
+just add AntDesign UI library into `shaobo_wasm`
+
+## 3. Blazor Server application : `shaobo_blazor`
 
 similar with the official `dotnet new blazorserver`, this template will create a single project
 
