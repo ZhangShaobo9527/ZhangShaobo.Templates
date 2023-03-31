@@ -24,5 +24,11 @@
       "defaultValue": "7284",
       "replaces": "__DEV_HTTPS_PORT__"
     }
-  }
+  },
+  "guids": [
+    "FAE04EC0-301F-11D3-BF4B-00C04F79EFBC",
+    "97A8D591-54E2-4A57-9AFB-8043DA8B59F4",
+    "B438DCEB-3EA0-47D1-87FE-B80C2644062C",
+    "D8DD4F5B-83EE-46BE-8672-E0AFF47BAE4E"
+  ]
 }

@@ -3,6 +3,7 @@
 |version|date|note|
 |--|--|--|
 |1.0.4|2023-03-29|add template `shaobo_wasm_antd` based on `shaobo_wasm`|
+|1.0.5|2023-03-31|target to net7.0<br>for wasm templates, set `Server.csproj` as default start up project<br>for wasm templates, generate sln GUID & project GUID dynamically|
 
 # dotnet new templates
 

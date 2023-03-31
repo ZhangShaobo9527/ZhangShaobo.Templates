@@ -12,10 +12,10 @@ jobs:
       - name: step 1 -> checkout repo
         uses: actions/checkout@v2
 
-      - name: step 2 -> install .NET 6
+      - name: step 2 -> install .NET 7
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 7.0.x
       
       - name: step 3 -> restore
         run: dotnet restore
