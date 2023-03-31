@@ -4,6 +4,7 @@
 |--|--|--|
 |1.0.4|2023-03-29|add template `shaobo_wasm_antd` based on `shaobo_wasm`|
 |1.0.5|2023-03-31|target to net7.0<br>for wasm templates, set `Server.csproj` as default start up project<br>for wasm templates, generate sln GUID & project GUID dynamically|
+|1.0.6|2023-03-31|add template `shaobo_wasm_antd_ut`<br>make `README.md` simpler & cleaner|
 
 # dotnet new templates
 
@@ -24,9 +25,15 @@ So I've decided to create some templates:
 
 # templates
 
-## 1. Blazor WASM application : `shaobo_wasm`
+## 1. Blazor WASM application : `shaobo_wasm`, `shaobo_wasm_antd`, `shaobo_wasm_antd_ut`
 
 similiar with the official `dotnet new blazorwasm --hosted`, this template will create three projects and a solution file.
+
+|template|description|
+|--|--|
+|`shaobo_wasm`|similar with the official `dotnet new blazorwasm --hosted`, just cleaner|
+|`shaobo_wasm_antd`|add Antdesign UI library on the basis of `shaobo_wasm`|
+|`shaobo_wasm_antd_ut`|add unit test project on the basis of `shaobo_wasm_antd`|
 
 ### Parameters:
 
@@ -48,48 +55,12 @@ similiar with the official `dotnet new blazorwasm --hosted`, this template will 
 
 `dotnet new shaobo_wasm -o MyFirstWASMApp -H 5000 -Ht 5001`
 
-### Structure:
-
-```
-${__PROJECT_NAME__}
-  |
-  `---> ${__PROJECT_NAME__}.Client
-  |         `---> Pages
-  |         |      `---> Index.razor
-  |         `---> wwwroot
-  |         |      `---> index.html
-  |         `---> ${__PROJECT_NAME__}.Client.csproj
-  |         `---> _Imports.razor
-  |         `---> App.razor
-  |         `---> Program.cs
-  `---> ${__PROJECT_NAME__}.Server
-  |         `---> Pages
-  |         |      `---> Error.cshtml
-  |         |      `---> Error.cshtml.cs
-  |         `---> Properties
-  |         |      `---> launchSettings.json
-  |         `---> ${__PROJECT_NAME__}.Server.csproj
-  |         `---> Program.cs
-  `---> ${__PROJECT_NAME__}.Shared
-  |         `---> ${__PROJECT_NAME__}.Shared.csproj
-  |         `---> BlankModel.cs
-  `---> ${___PROJECT_NAME__}.sln
-  `---> .gitignore
-  `---> Build.ps1
-  `---> Clean.ps1
-  `---> Start.ps1
-```
-
 ### Notes:
 
 1. `${__PROJECT_NAME__}.Shared\BlankModel.cs` is a blank class definition. I have to place at least one class definition in the `Shared` project otherwise statement `using ${__PROJECT_NAME__}.Shared` will be treat as a compile error in `Client` & `Server` project
 2. `${__PROJECT_NAME__}.Shared` is just a regular class library, it's not Blazor Component Library, so don't put any shared Blazor Components or statis assets into it
 
-## 2. Blazor WASM application with AntDesign UI library integrated : `shaobo_wasm_antd`
-
-just add AntDesign UI library into `shaobo_wasm`
-
-## 3. Blazor Server application : `shaobo_blazor`
+## 2. Blazor Server application : `shaobo_blazor`
 
 similar with the official `dotnet new blazorserver`, this template will create a single project
 
@@ -110,24 +81,3 @@ similar with the official `dotnet new blazorserver`, this template will create a
 ### Example:
 
 `dotnet new shaobo_blazor -o MyFirstBlazorServerApp -H 5000 -Ht 5001`
-
-### Structure:
-
-```
-${__PROJECT_NAME__}
-  |
-  `---> Pages
-  |       `---> _Host.cshtml
-  |       `---> Error.cshtml
-  |       `---> Error.cshtml.cs
-  |       `---> Index.razor
-  `---> Properties
-  |       `---> launchSettings.json
-  `---> wwwroot
-  `---> ${___PROJECT_NAME__}.csproj
-  `---> _Imports.razor
-  `---> .gitignore
-  `---> App.razor
-  `---> Clean.ps1
-  `---> Program.cs
-```

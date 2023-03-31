@@ -3,6 +3,7 @@ $foldersNeedToClean =
 ".vscode",
 "bin",
 "obj",
+"Pack",
 "shaobo_wasm_antd\__PROJECT_NAME__.Client\bin",
 "shaobo_wasm_antd\__PROJECT_NAME__.Client\obj",
 "shaobo_wasm_antd\__PROJECT_NAME__.Server\bin",
