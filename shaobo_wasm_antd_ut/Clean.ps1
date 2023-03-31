@@ -8,7 +8,8 @@ $foldersNeedToClean =
 ".\__PROJECT_NAME__.Shared\bin",
 ".\__PROJECT_NAME__.Shared\obj",
 ".\__PROJECT_NAME__.Test\bin",
-".\__PROJECT_NAME__.Test\obj";
+".\__PROJECT_NAME__.Test\obj",
+".\__PROJECT_NAME__.Test\TestResults";
 
 Foreach($folder in $foldersNeedToClean)
 {

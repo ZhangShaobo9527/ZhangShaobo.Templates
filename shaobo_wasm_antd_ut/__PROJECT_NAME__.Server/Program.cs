@@ -1,9 +1,12 @@
+using System.Diagnostics.CodeAnalysis;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace __PROJECT_NAME__.Server;
 
+[ExcludeFromCodeCoverage]
 public class Program
 {
     public static void Main(string[] args)
