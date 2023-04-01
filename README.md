@@ -1,42 +1,43 @@
-# release note
+# What's this?
 
-|version|date|note|
-|--|--|--|
-|1.0.4|2023-03-29|add template `shaobo_wasm_antd` based on `shaobo_wasm`|
-|1.0.5|2023-03-31|target to net7.0<br>for wasm templates, set `Server.csproj` as default start up project<br>for wasm templates, generate sln GUID & project GUID dynamically|
-|1.0.6|2023-03-31|add template `shaobo_wasm_antd_ut`<br>make `README.md` simpler & cleaner|
-|1.0.7|2023-04-01|add script `Test.ps1` for `shaobo_wasm_ant_ut`|
+The default `dotnet new` blazor templates shipped with dotnet sdk is fine, there are just some tiny annoying things make me feel uncomfortable, like:
 
-# dotnet new templates
+1. bootstrap & jQuery are always included
+2. the default pages and layouts will always be deleted eventually
+3. since .NET 6, `implicit using` was enabled as default.
+4. since .NET 6, no `Program` class & `Main` function anymore
 
-The default templates shipped with dotnet sdk is fine, there is just some tiny annoying part made me feel uncomfortable, like:
+Actually these changes are not big deals, just I don't like it, so I've decided to create `ZhangShaobo.Templates` to fix these annoying things:
 
-1. bootstrap & jQuery always in web apps, and there always a default page which will always be delete.
-2. since .NET 6, official template use implicit using as default.
-3. since .NET 6, no `Program` class anymore, no `Main` function anymore.
+1. `implicit using` disabled
+2. `Program` class and `Main` function as the old way
+3. no default pages(well, the default `Index` still had to be there)
+4. no external front-end web libraries involved: like jQuery & bootstrap
+5. add scripts like `Build.ps1`, `Clean.ps1` and `Start.ps1` etc. for convenience, and as you can see from the script suffix: these helper scripts only works on powershell which mainly(almost only) used in windows platform.
 
-There's nothing wrong with the new `one line console template`, and bootstrap & jQuery is also fine, just I don't like it.
+You might wonder what the fuck is `ZhangShaobo` & `Shaobo`, well, I have to confess that I didn't thought too much when I started, the biggest mistake I've made and realized so far is to use my real name as the `nupkg` package name and template name: 
 
-So I've decided to create some templates:
+1. it made the package name and template name too long..😒
+2. I should not mark my name to such a toy project, I should made something that change the world, not this piece of crap. It's harmful to my reputation..😒😒😒
+3. #2 is a joke: actually I'm proud of every piece of crap I've made: the world is made up of craps, all craps matters! 🤪🤪🤪🤪🤪🤪🤪
 
-1. no implicit using as default
-2. `Program` and `Main` as the old way
-3. for web apps, just create a blank project, no jQuery, no Bootstrap or any other js/css libraries
-4. add scripts like `Build.ps1`, `Clean.ps1` and `Start.ps1` for convenience.
-
-# templates
+# Templates
 
 ## 1. Blazor WASM application : `shaobo_wasm`, `shaobo_wasm_antd`, `shaobo_wasm_antd_ut`
 
-similiar with the official `dotnet new blazorwasm --hosted`, this template will create three projects and a solution file.
+these three templates are all similiar to the official `dotnet new blazorwasm --hosted` template, this template will create a `Solution` contains multiple `Projects`:
 
-|template|description|
-|--|--|
-|`shaobo_wasm`|similar with the official `dotnet new blazorwasm --hosted`, just cleaner|
-|`shaobo_wasm_antd`|add Antdesign UI library on the basis of `shaobo_wasm`|
-|`shaobo_wasm_antd_ut`|add unit test project on the basis of `shaobo_wasm_antd`|
+   `shaobo_wasm` and `shaobo_wasm_antd` will create three projects just like the `dotnet new blazorwasm --hosted` : `xx.Client`, `xx.Server` and `xx.Shared`. `shaobo_wasm_antd_ut` will create an extra unit test project `xx.Test`
 
-### Parameters:
+1. `shaobo_wasm` is the most simple, clean one : just nothing except a default page: no controllers, no layout components, no webapi, nothing.
+
+2. `shaobo_wasm_antd` added Antdesign UI library based on `shaobo_wasm`.
+
+3. `shaobo_wasm_antd_ut` added unit test suites(xUnit & coverlet) based on `shaobo_wasm_antd_ut`
+
+### Parameters & Usage:
+
+all those templates shares the same usage and parameter definitions
 
 |Parameter|Default Value|Options|Description|
 |--|--|--|--|
@@ -44,18 +45,20 @@ similiar with the official `dotnet new blazorwasm --hosted`, this template will 
 |`__DEV_HTTP_PORT__`|5018|`-H`, `--HttpDevPort` |HTTP Port number in development env|
 |`__DEV_HTTPS_PORT__`|7284|`-Ht`, `--HttpsDevPort` | HTTPs Port number in development env|
 
-### Scripts:
+examples:
+
+```powershell
+dotnet new shaobo_wasm -o MyFirstWASMApp -H 5000 -Ht 5001
+```
+
+### Helper Scripts:
 
 |Script name| Parameters| Description|
 |--|--|--|
 |`Build.ps1`|--|build & restore the whole solution, include `Client` & `Server` and `Shared`|
 |`Clean.ps1`|--|delete all the intermidiate files & folders generated by build procedure|
 |`Start.ps1`|--|start the local development server in watch(hot reload enabled) mode|
-|`Test.ps1`|--|**only available for `shaobo_wasm_antd_ut`** : execute unit tests, generate readable cc report|
-
-### Example:
-
-`dotnet new shaobo_wasm -o MyFirstWASMApp -H 5000 -Ht 5001`
+|`Test.ps1`|--|**only available for `shaobo_wasm_antd_ut`** : execute unit tests and generate readable cc report|
 
 ### Notes:
 
@@ -64,9 +67,9 @@ similiar with the official `dotnet new blazorwasm --hosted`, this template will 
 
 ## 2. Blazor Server application : `shaobo_blazor`
 
-similar with the official `dotnet new blazorserver`, this template will create a single project
+similar with the official `dotnet new blazorserver`, this template will create a single project instead of a solution with project(s).
 
-### Parameters:
+### Parameters & Usage:
 
 |Parameter|Default Value|Options|Description|
 |--|--|--|--|
@@ -74,12 +77,44 @@ similar with the official `dotnet new blazorserver`, this template will create a
 |`__DEV_HTTP_PORT__`|3037|`-H`, `--HttpDevPort` |HTTP Port number in development env|
 |`__DEV_HTTPS_PORT__`|6428|`-Ht`, `--HttpsDevPort` | HTTPs Port number in development env|
 
-### Scripts:
+examples:
+
+```powershell
+dotnet new shaobo_blazor -o MyFirstBlazorServerApp -H 5000 -Ht 5001
+```
+
+### Helper Scripts:
 
 |Script name| Parameters| Description|
 |--|--|--|
 |`Clean.ps1`|--|delete all the intermidiate files & folders generated by build procedure|
 
-### Example:
+# release note (order by release time ASC)
 
-`dotnet new shaobo_blazor -o MyFirstBlazorServerApp -H 5000 -Ht 5001`
+## 1.0.0 ~ 1.0.3
+
+1. the initial releases, only contains two template : `shaobo_wasm` & `shaobo_blazor`
+
+## 1.0.4, 2023-03-29
+
+1. add template `shaobo_wasm_antd`
+
+## 1.0.5, 2023-03-31
+
+1. migrate to net7.0
+2. set `*.Server.csproj` as the default start up project for blazor wasm templates
+3. bug fix: blazor wasm templates use hard coded GUID as solution & project GUID in `sln` file
+
+## 1.0.6, 2023-03-31
+
+1. add template `shaobo_wasm_antd_ut`
+2. make `README.md` cleaner
+
+## 1.0.7, 2023-04-01
+
+1. add `Test.ps1` helper script for `shaobo_wasm_ant_ut`: execute UT & generate CC report
+
+## 1.0.8, 2023-04-01
+
+1. bug fix: for blazor wasm templates, css isolation doesn't work
+2. make `README.md` cleaner
