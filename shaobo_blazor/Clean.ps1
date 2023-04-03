@@ -1,8 +1,10 @@
-$foldersNeedToClean =
-".vs",
-".vscode",
-"obj",
-"bin";
+$rootPath = Split-Path $MyInvocation.MyCommand.Path -Parent;
+
+$foldersNeedToClean = @();
+$foldersNeedToClean += Join-Path $rootPath .vs;
+$foldersNeedToClean += Join-Path $rootPath .vscode;
+$foldersNeedToClean += Join-Path $rootPath obj;
+$foldersNeedToClean += Join-Path $rootPath bin;
 
 Foreach($folder in $foldersNeedToClean)
 {
@@ -10,9 +12,5 @@ Foreach($folder in $foldersNeedToClean)
 	{
 		Write-Host "Deleting : " $folder;
 		Remove-Item -Force -Recurse -LiteralPath $folder;
-	}
-	else
-	{
-		Write-Host "Not found : " $folder;
 	}
 }

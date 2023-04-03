@@ -1,23 +1,33 @@
-$foldersNeedToClean =
-".vs",
-".vscode",
-"bin",
-"obj",
-"Pack",
-"shaobo_wasm_antd\__PROJECT_NAME__.Client\bin",
-"shaobo_wasm_antd\__PROJECT_NAME__.Client\obj",
-"shaobo_wasm_antd\__PROJECT_NAME__.Server\bin",
-"shaobo_wasm_antd\__PROJECT_NAME__.Server\obj",
-"shaobo_wasm_antd\__PROJECT_NAME__.Shared\bin",
-"shaobo_wasm_antd\__PROJECT_NAME__.Shared\obj",
-"shaobo_wasm\__PROJECT_NAME__.Client\bin",
-"shaobo_wasm\__PROJECT_NAME__.Client\obj",
-"shaobo_wasm\__PROJECT_NAME__.Server\bin",
-"shaobo_wasm\__PROJECT_NAME__.Server\obj",
-"shaobo_wasm\__PROJECT_NAME__.Shared\bin",
-"shaobo_wasm\__PROJECT_NAME__.Shared\obj",
-"shaobo_blazor\bin",
-"shaobo_blazor\obj";
+$rootPath = Split-Path $MyInvocation.MyCommand.Path -Parent;
+$foldersNeedToClean = @();
+$foldersNeedToClean += Join-Path $rootPath .vs;
+$foldersNeedToClean += Join-Path $rootPath .vscode;
+$foldersNeedToClean += Join-Path $rootPath bin;
+$foldersNeedToClean += Join-Path $rootPath obj;
+$foldersNeedToClean += Join-Path $rootPath Pack;
+$foldersNeedToClean += Join-Path $rootPath shaobo_blazor bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_blazor obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm __PROJECT_NAME__.Client bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm __PROJECT_NAME__.Client obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm __PROJECT_NAME__.Server bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm __PROJECT_NAME__.Server obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm __PROJECT_NAME__.Shared bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm __PROJECT_NAME__.Shared obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd __PROJECT_NAME__.Client bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd __PROJECT_NAME__.Client obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd __PROJECT_NAME__.Server bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd __PROJECT_NAME__.Server obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd __PROJECT_NAME__.Shared bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd __PROJECT_NAME__.Shared obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd_ut __PROJECT_NAME__.Client bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd_ut __PROJECT_NAME__.Client obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd_ut __PROJECT_NAME__.Server bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd_ut __PROJECT_NAME__.Server obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd_ut __PROJECT_NAME__.Shared bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd_ut __PROJECT_NAME__.Shared obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd_ut __PROJECT_NAME__.Test bin;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd_ut __PROJECT_NAME__.Test obj;
+$foldersNeedToClean += Join-Path $rootPath shaobo_wasm_antd_ut __PROJECT_NAME__.Test TestResults;
 
 Foreach($folder in $foldersNeedToClean)
 {
@@ -25,9 +35,5 @@ Foreach($folder in $foldersNeedToClean)
 	{
 		Write-Host "Deleting : " $folder;
 		Remove-Item -Force -Recurse -LiteralPath $folder;
-	}
-	else
-	{
-		Write-Host "Not found : " $folder;
 	}
 }
