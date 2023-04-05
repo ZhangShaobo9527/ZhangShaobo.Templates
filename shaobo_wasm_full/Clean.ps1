@@ -9,6 +9,9 @@ $foldersNeedToClean += [IO.Path]::Combine($rootPath, "__PROJECT_NAME__.Server", 
 $foldersNeedToClean += [IO.Path]::Combine($rootPath, "__PROJECT_NAME__.Server", "obj");
 $foldersNeedToClean += [IO.Path]::Combine($rootPath, "__PROJECT_NAME__.Shared", "bin");
 $foldersNeedToClean += [IO.Path]::Combine($rootPath, "__PROJECT_NAME__.Shared", "obj");
+$foldersNeedToClean += [IO.Path]::Combine($rootPath, "__PROJECT_NAME__.Test", "bin");
+$foldersNeedToClean += [IO.Path]::Combine($rootPath, "__PROJECT_NAME__.Test", "obj");
+$foldersNeedToClean += [IO.Path]::Combine($rootPath, "__PROJECT_NAME__.Test", "TestResults");
 
 Foreach($folder in $foldersNeedToClean)
 {

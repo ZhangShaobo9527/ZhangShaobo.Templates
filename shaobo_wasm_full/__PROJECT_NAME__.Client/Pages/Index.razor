@@ -1,0 +1,8 @@
+@page "/"
+@inject ILocalStorageService localStorage;
+
+<h1>__PROJECT_NAME__ : Index</h1>
+
+<p>currentCount == @this.CurrentCount</p>
+
+<Button Type="@ButtonType.Primary" OnClick="OnButtonClickAsync">Click</Button>

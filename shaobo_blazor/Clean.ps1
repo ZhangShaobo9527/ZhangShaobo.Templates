@@ -1,10 +1,10 @@
 $rootPath = Split-Path $MyInvocation.MyCommand.Path -Parent;
 
 $foldersNeedToClean = @();
-$foldersNeedToClean += Join-Path $rootPath .vs;
-$foldersNeedToClean += Join-Path $rootPath .vscode;
-$foldersNeedToClean += Join-Path $rootPath obj;
-$foldersNeedToClean += Join-Path $rootPath bin;
+$foldersNeedToClean += [IO.Path]::Combine($rootPath, ".vs");
+$foldersNeedToClean += [IO.Path]::Combine($rootPath, ".vscode");
+$foldersNeedToClean += [IO.Path]::Combine($rootPath, "obj");
+$foldersNeedToClean += [IO.Path]::Combine($rootPath, "bin");
 
 Foreach($folder in $foldersNeedToClean)
 {
