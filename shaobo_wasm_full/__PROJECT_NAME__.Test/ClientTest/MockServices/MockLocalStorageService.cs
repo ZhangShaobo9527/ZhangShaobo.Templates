@@ -1,7 +1,8 @@
-using __PROJECT_NAME__.Client.Services;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
+
+using __PROJECT_NAME__.Shared.ClientServices;
 
 namespace __PROJECT_NAME__.Test.ClientTest.MockServices
 {

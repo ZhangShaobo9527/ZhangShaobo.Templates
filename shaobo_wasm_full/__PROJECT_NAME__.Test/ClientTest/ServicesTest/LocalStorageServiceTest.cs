@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
+
 using Bunit;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
-using __PROJECT_NAME__.Client.Services;
 using Xunit;
+
+using __PROJECT_NAME__.Shared.ClientServices;
 
 namespace __PROJECT_NAME__.Test.ClientTest.ServicesTest;
 
@@ -17,7 +19,7 @@ public class LocalStorageServiceTest
     }
 
     [Fact]
-    public async Task GetAsyncTestAsync()
+    public async Task GetAsync()
     {
         string existKey = "exist";
         int existValue = 233;
@@ -46,7 +48,7 @@ public class LocalStorageServiceTest
     }
 
     [Fact]
-    public async Task SetAsyncTestAsync()
+    public async Task SetAsync()
     {
         string key = "key";
         int value = 233;
@@ -71,7 +73,7 @@ public class LocalStorageServiceTest
     }
 
     [Fact]
-    public async Task WatchAsyncTestAsync()
+    public async Task WatchAsync()
     {
         using var ctx = new TestContext();
 

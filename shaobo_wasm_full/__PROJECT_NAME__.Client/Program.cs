@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-using __PROJECT_NAME__.Client.Services;
+using Fluxor;
+
+using __PROJECT_NAME__.Shared.StateManagement.Stores.Index;
+using __PROJECT_NAME__.Shared.ClientServices;
 
 namespace __PROJECT_NAME__.Client;
 
@@ -23,6 +26,9 @@ public class Program
         hostBuilder.Services.AddAntDesign();
         hostBuilder.Services.AddScoped(serviceProvider => new HttpClient { BaseAddress = new Uri(hostBuilder.HostEnvironment.BaseAddress) });
         hostBuilder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
+        hostBuilder.Services.AddScoped<IBookService, HttpBookService>();
+        hostBuilder.Services.AddFluxor(options => options.ScanAssemblies(typeof(IndexStore).Assembly));
+
         await hostBuilder.Build().RunAsync();
     }
 }

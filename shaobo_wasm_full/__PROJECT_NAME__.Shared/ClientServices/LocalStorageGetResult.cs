@@ -1,4 +1,4 @@
-namespace __PROJECT_NAME__.Client.Services;
+namespace __PROJECT_NAME__.Shared.ClientServices;
 
 public struct LocalStorageGetResult<T>
 {

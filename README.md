@@ -36,7 +36,7 @@ these two templates are all similiar to the official `dotnet new blazorwasm --ho
 
    2. Unit test related libraries & tools: 
 
-      package: `xUnit`, `bUnit`, `coverlet.collector`
+      package: `xUnit`, `bUnit`, `coverlet.collector`, `Moq`, `RichardSzalay.MockHttp`
 
       tool: `dotnet-reportgenerator-globaltool`
 
@@ -45,6 +45,8 @@ these two templates are all similiar to the official `dotnet new blazorwasm --ho
    4. helper script `Test.ps1` to execute unit tests and generate cc report
 
    5. helper utilities to access browser `localStorage` via `JSInterop`
+
+   6. state management library `Fluxor` and related test suite library
 
 ### Parameters & Usage:
 
@@ -165,3 +167,9 @@ dotnet new shaobo_blazor -o MyFirstBlazorServerApp -H 5000 -Ht 5001
 4. bugfix: `Test.ps1` would open cc report by test editor if user set text editor as default open app of `*.html` 
    
    just use microsoft edge exe bin path to launch browser..
+
+## 1.0.11, 2023-04-06
+
+1. add state management library `Fluxor` for `shaobo_wasm_full`
+
+2. rearrange file structure of `shaobo_wasm_full`: put lots of things into `Shared` project, make `Client` and `Server` as thin as possible

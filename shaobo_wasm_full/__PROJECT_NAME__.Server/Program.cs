@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using __PROJECT_NAME__.Shared.ServerServices;
+
 namespace __PROJECT_NAME__.Server;
 
 [ExcludeFromCodeCoverage]
@@ -15,6 +17,7 @@ public class Program
 
         webApplicationBuilder.Services.AddControllersWithViews();
         webApplicationBuilder.Services.AddRazorPages();
+        webApplicationBuilder.Services.AddSingleton<IBookService, StaticBookService>();
 
         WebApplication webApplication = webApplicationBuilder.Build();
 

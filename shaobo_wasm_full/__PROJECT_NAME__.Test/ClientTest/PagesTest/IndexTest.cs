@@ -1,21 +1,96 @@
 using AntDesign.Tests;
 using Bunit;
+using Fluxor;
+using Moq;
 using Xunit;
 
 using Microsoft.Extensions.DependencyInjection;
 
 using __PROJECT_NAME__.Client.Pages;
-using __PROJECT_NAME__.Client.Services;
+using __PROJECT_NAME__.Shared.ClientServices;
+using __PROJECT_NAME__.Shared.StateManagement.Stores.Index;
 using __PROJECT_NAME__.Test.ClientTest.MockServices;
+using __PROJECT_NAME__.Test.MockData;
 
 namespace __PROJECT_NAME__.Test.ClientTest.PagesTest;
 
 public class IndexTest : AntDesignTestBase
 {
-    [Fact]
-    public void Render_default()
+    private MockLocalStorageService mockLocalStorageService = default!;
+    private Mock<IBookService> MockBookService = default!;
+
+    public IndexTest()
     {
+        Context.Services.AddFluxor(options => options.ScanAssemblies(typeof(IndexStore).Assembly));
         Context.Services.AddScoped<ILocalStorageService, MockLocalStorageService>();
+
+        this.MockBookService = new Mock<IBookService>();
+        this.MockBookService.Setup(s => s.GetBooksAsync()).ReturnsAsync(MockBooks.Books.ToArray());
+
+
+        Context.Services.AddScoped<IBookService>(sp => this.MockBookService.Object);
+        // necessary for Fluxor
+        Context.RenderComponent<Fluxor.Blazor.Web.StoreInitializer>();
+
+        this.mockLocalStorageService = (MockLocalStorageService)Context.Services.GetService<ILocalStorageService>()!;
+    }
+    [Fact]
+    public void Render_ShouldRenderLoadingIfBookServiceHang()
+    {
+        this.MockBookService.Setup(s => s.GetBooksAsync()).ReturnsAsync(MockBooks.Books.ToArray(), System.TimeSpan.MaxValue);
+        var index = Context.RenderComponent<Index>();
+
+        index.Find("em").MarkupMatches("<em>Loading books...</em>");
+    }
+
+    [Fact]
+    public void Render_RenderBooksCorrectly()
+    {
+        var index = Context.RenderComponent<Index>();
+
+        index.Find("table").MarkupMatches(@"
+            <table border = ""1"">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Author</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>MockBook1</td>
+                            <td>MockAuthor1</td>
+                            <td>1.11</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>MockBook2</td>
+                            <td>MockAuthor2</td>
+                            <td>2.22</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>MockBook3</td>
+                            <td>MockAuthor3</td>
+                            <td>3.33</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>MockBook4</td>
+                            <td>MockAuthor4</td>
+                            <td>4.44</td>
+                        </tr>
+                </tbody>
+            </table>
+        ");
+    }
+
+    [Fact]
+    public void Render_DefaultCurrentCountShouldBeZero()
+    {
         var index = Context.RenderComponent<Index>();
 
         index.Find("h1").MarkupMatches("<h1>__PROJECT_NAME__ : Index</h1>");
@@ -23,15 +98,10 @@ public class IndexTest : AntDesignTestBase
     }
 
     [Fact]
-    public void Render_localStorage_throw_exception_when_get()
+    public void Render_CurrentCountShouldBeZeroWhenLocalStorageCorrupted()
     {
+        this.mockLocalStorageService.ShouldThrowExceptionOnGet = true;
 
-        Context.Services.AddScoped<ILocalStorageService>(sp =>
-        {
-            var ls = new MockLocalStorageService();
-            ls.ShouldThrowExceptionOnGet = true;
-            return ls;
-        });
         var index = Context.RenderComponent<Index>();
 
         index.Find("h1").MarkupMatches("<h1>__PROJECT_NAME__ : Index</h1>");
@@ -39,9 +109,8 @@ public class IndexTest : AntDesignTestBase
     }
 
     [Fact]
-    public void Render_click_button()
+    public void Render_CurrentCountShouldIncrWhenButtonClicked()
     {
-        Context.Services.AddScoped<ILocalStorageService, MockLocalStorageService>();
         var index = Context.RenderComponent<Index>();
 
         for(int i = 0; i < 100; ++i)
@@ -52,38 +121,31 @@ public class IndexTest : AntDesignTestBase
     }
 
     [Fact]
-    public void Render_with_value_in_localStorage()
+    public void Render_CurrentCountShouldBeValueInLocalStorage()
     {
-        Context.Services.AddScoped<ILocalStorageService>(sp => {
-            var mockLSService = new MockLocalStorageService();
-            mockLSService.SetAsync<int>("CurrentCount", 9527).Wait();
-            return mockLSService;
+        this.mockLocalStorageService.SetAsync<int>("CurrentCount", 9527).Wait();
 
-        });
         var index = Context.RenderComponent<Index>();
-
 
         index.Find("h1").MarkupMatches("<h1>__PROJECT_NAME__ : Index</h1>");
         index.Find("p").MarkupMatches($"<p>currentCount == {9527}</p>");
     }
 
     [Fact]
-    public void Render_with_localStorageChange()
+    public void Render_CurrentCountShouldSyncWithLocalStorageChange()
     {
-        Context.Services.AddScoped<ILocalStorageService>(sp => {
-            var mockLSService = new MockLocalStorageService();
-            mockLSService.SetAsync<int>("CurrentCount", 9527).Wait();
-            return mockLSService;
+        this.mockLocalStorageService.SetAsync<int>("CurrentCount", 9527).Wait();
 
-        });
         var index = Context.RenderComponent<Index>();
 
         index.Find("h1").MarkupMatches("<h1>__PROJECT_NAME__ : Index</h1>");
         index.Find("p").MarkupMatches($"<p>currentCount == {9527}</p>");
 
-        var lsService = Context.Services.GetService<ILocalStorageService>();
-        lsService!.SetAsync("CurrentCount", 8837).Wait();
+        this.mockLocalStorageService.SetAsync("CurrentCount", 8837).Wait();
 
         index.Find("p").MarkupMatches($"<p>currentCount == {8837}</p>");
+
+        index.Find(cssSelector:".ant-btn").Click();
+        index.Find("p").MarkupMatches($"<p>currentCount == {8838}</p>");
     }
 }

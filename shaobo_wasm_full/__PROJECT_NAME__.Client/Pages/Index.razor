@@ -1,8 +1,112 @@
+@using __PROJECT_NAME__.Shared.StateManagement.Stores.Index
+@using __PROJECT_NAME__.Shared.StateManagement.Actions.Index
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@implements ILocalStorageWatcher
+
 @page "/"
-@inject ILocalStorageService localStorage;
 
 <h1>__PROJECT_NAME__ : Index</h1>
 
 <p>currentCount == @this.CurrentCount</p>
 
 <Button Type="@ButtonType.Primary" OnClick="OnButtonClickAsync">Click</Button>
+
+<br/>
+
+@if(this.IndexStore.IsLoading)
+{
+    <p><em>Loading books...</em></p>
+}
+else
+{
+    <table border = "1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var book in this.IndexStore.books!)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Name</td>
+                    <td>@book.Author</td>
+                    <td>@book.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Inject]
+    public IDispatcher Dispatcher { get; set; } = default!;
+
+    [Inject]
+    public IState<IndexStore> State { get; set; } = default!;
+
+    public IndexStore IndexStore => State.Value;
+
+    public int CurrentCount
+    {
+        get => IndexStore.ClickCounter;
+        set
+        {
+            if (this.CurrentCount != value)
+            {
+                Dispatcher.Dispatch(new SetCounterAction(value));
+            }
+        }
+    }
+
+    [Inject]
+    public ILocalStorageService LocalStorage { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await this.LocalStorage.InitAsync();
+            await this.LocalStorage.WatchAsync(this);
+
+            var lsResult = await this.LocalStorage.GetAsync<int>(nameof(this.CurrentCount));
+            if (lsResult.Exist)
+            {
+                this.CurrentCount = lsResult.Value;
+            }
+        }
+        catch
+        {
+            // localStorage corrupted, ignore
+        }
+
+        this.Dispatcher.Dispatch(new FetchBooksAction());
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task OnButtonClickAsync()
+    {
+        Dispatcher.Dispatch(new IncrementCounterAction());
+        await this.LocalStorage.SetAsync<int>(nameof(this.CurrentCount), this.CurrentCount);
+    }
+
+    [JSInvokable]
+    public async Task OnLocalStorageChangeAsync()
+    {
+        var lsResult = await this.LocalStorage.GetAsync<int>(nameof(this.CurrentCount));
+
+        if(lsResult.Value == this.CurrentCount)
+        {
+            return;
+        }
+
+        this.CurrentCount = lsResult.Value;
+        await this.InvokeAsync(this.StateHasChanged);
+    }
+}

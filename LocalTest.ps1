@@ -1,3 +1,8 @@
+Param(
+    [Parameter(Position = 0, Mandatory=$true)]
+    [string]$projectName
+);
+
 $rootPath = Split-Path $MyInvocation.MyCommand.Path -Parent;
 $csprojFilePath = [IO.Path]::Combine($rootPath, "ZhangShaobo.Templates.csproj");
 $packFolderPath = [IO.Path]::Combine($rootPath, "Pack");
@@ -14,7 +19,7 @@ $nupkgFiles = Get-ChildItem $rootPath -Recurse -Filter "*.nupkg" | Sort-Object -
 
 dotnet new install $nupkgFiles[0].FullName;
 
-$testSlnPath = [IO.Path]::Combine($HOME, "source", "repos", "TemplateTest");
+$testSlnPath = [IO.Path]::Combine($HOME, "source", "repos", $projectName);
 
 # visual studio just sometime won't kill node.exe after termination
 $node = Get-Process -Name node -ErrorAction SilentlyContinue;
